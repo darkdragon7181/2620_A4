@@ -13,7 +13,8 @@
 
 #include <list>
 #include <map>
-#include <iostream
+#include <iostream>
+#include <iterator>
 
 using namespace std;
 class LineEditor{
@@ -30,8 +31,8 @@ class LineEditor{
 
   private:
    list <char> text;
-   list <char> :: iterator cursor;
+   list <char>::iterator cursor;
 };
-
+ostream& operator<<(ostream &os, const LineEditor& le);
 
 #endif
