@@ -4,11 +4,15 @@
 //default constructor
 LineEditor::LineEditor()
 {
+   list <char> t;
+   text = t;
+   cursor = t.begin()++;
 }
 
 //destructor
 LineEditor::~LineEditor()
 {
+   
 }
 
 /*
@@ -18,6 +22,12 @@ LineEditor::~LineEditor()
  */
 void LineEditor::left()
 {
+   if(cursor == text.begin())
+   {
+      break;
+   }
+   else
+      cursor--;
 }
 
 /*
@@ -28,6 +38,10 @@ void LineEditor::left()
  */
 void LineEditor::right()
 {
+   if(cursor == text.end())
+      break;
+   else
+      cursor++;
 }
 /*
   insert function
@@ -45,9 +59,16 @@ void LineEditor::insert(const string& s)
   erases the character at the current position. The cursor
   should be positioned at the character immediately after the one erased.
   If the cursor is past the end of the line, this function does nothing.
- */
+*/
 void LineEditor::erase()
 {
+   if(cursor == text.end()+1)
+      break;
+   else
+   {
+      erase(cursor);
+      cursor++;
+   }
 }
 
 /*
@@ -59,6 +80,12 @@ void LineEditor::erase()
 */
 void LineEditor::change(char c)
 {
+   if(cursor == text.end()+1)
+      this.insert();
+   else
+   {
+      text[cursor] = c;
+   }
 }
 
 /*
@@ -68,8 +95,14 @@ void LineEditor::change(char c)
  */
 void LineEditor::apply (char (*f)(char c))
 {
+   transform(text.begin(), text.end(), text.begin(), f);
 }
+
+/*
+  The line of text is first printed, ended with the symbol
+  $ to mark the end of line. The next line contains a single
+  character ^ to indicate the position of the cursor.
+ */
 ostream& operator <<(ostream &os, const LineEditor& le)
 {
 }
-

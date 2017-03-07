@@ -12,7 +12,6 @@
 #define LINEEDITOR_H
 
 #include <list>
-#include <map>
 #include <iostream>
 #include <iterator>
 
