@@ -1,5 +1,5 @@
 #include <iostream>
-#include "LineEditor"
+#include "LineEditor.h"
 
 using namespace std;
 
