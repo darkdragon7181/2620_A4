@@ -53,7 +53,8 @@ void LineEditor::insert(const string& s)
    list <char> temp; // temp list
    temp = text;// assign it to the text list
    
-   text.resize(temp.size() + s.length());
+   //text.resize(temp.size() + s.length());
+   text = list <char> (temp.size() + s.length());
    
    for (int j = 0; j < distance(text.begin(), cursor); j++)// add the chars up to the cursor
    {
