@@ -1,6 +1,8 @@
 #include <iostream>
 #include "LineEditor"
 
+using namespace std;
+
 int main()
 {
    LineEditor line;
