@@ -132,9 +132,9 @@ void LineEditor::apply (char (*f)(char c))
 */
 ostream& operator <<(ostream &os, const LineEditor& le)
 {
-   for (auto i : le.text)
+   for (list<char> outit = le.text.begin(); outit != le.text.end(); outit++)
    {
-      os << i;
+      os << *outit;
    }
    os << "$^";
    return os;
