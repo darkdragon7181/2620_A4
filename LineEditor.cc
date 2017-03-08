@@ -6,11 +6,14 @@
 //default constructor
 LineEditor::LineEditor()
 {
+   text = list <char> ();//empty char list
+   cursor = text.begin();//point it to the begining of the char list
 }
 
 //destructor
 LineEditor::~LineEditor()
 {
+   
 }
 
 /*
@@ -20,12 +23,14 @@ LineEditor::~LineEditor()
  */
 void LineEditor::left()
 {
+   cout << "moving cursor to the left" << endl;
    if(cursor == text.begin())
    {
       return;
    }
    else
-      cursor--;
+      advance(cursor, -1);
+   cout << *cursor << endl;
 }
 
 /*
@@ -36,10 +41,13 @@ void LineEditor::left()
  */
 void LineEditor::right()
 {
+   cout << "moving cursor to the right" << endl;
    if(cursor == text.end())
       return;
    else
-      cursor++;
+      //cursor++;
+      advance(cursor, 1);
+   cout << *cursor << endl;
 }
 /*
   insert function
@@ -50,34 +58,8 @@ void LineEditor::right()
 */
 void LineEditor::insert(const string& s)
 {
-   list <char> temp; // temp list
-   temp = text;// assign it to the text list
-   
-   //text.resize(temp.size() + s.length());
-   text = list <char> (temp.size() + s.length());
-   
-   for (int j = 0; j < distance(text.begin(), cursor); j++)// add the chars up to the cursor
-   {
-      //copy up to the location of the iterator
-      //format:
-      //       text.assign(location of where to place the char, the char to assign)
-      text.assign(j, *temp.begin()+j);
-   }
-   
-   for (int i = 0; i < s.length(); i++)// add in the rest of the chars from the string
-   {
-      //text[i+cursor] = s[i];
-      //text.assign(/*where to place the char*/, /*the char to place*/)
-      text.assign(distance(text.begin(), cursor) + i, s[i]);
-   }
-   
-   for (int k = temp.size(); k < text.size(); k++)//copy the rest of the old list
-   {
-      //text[temp[cursor]+s.lenght()+k] = temp[cursor+k];
-      
-      text.assign(distance(temp.begin(), cursor) + s.length() + k/*location of where to place the char*/, *temp.begin() + (k + distance(temp.begin(), cursor))/*char to place*/);
-      // = *temp.begin() + (k + distance(temp.begin(), cursor));
-   }
+   text.insert(cursor, s.begin(), s.end());
+   cursor = text.end();
 }
 
 /*
@@ -103,7 +85,7 @@ void LineEditor::erase()
   past the end of the line, then this function should behave exactly the
   same way as insert.
 */
-void LineEditor::change(char c)
+void LineEditor::change(char c)//doesn't work
 {
    if(cursor == text.end())
    {
@@ -132,10 +114,15 @@ void LineEditor::apply (char (*f)(char c))
 */
 ostream& operator <<(ostream &os, const LineEditor& le)
 {
-   for (list<char> outit = le.text.begin(); outit != le.text.end(); outit++)
+   list<char>::const_iterator i;
+   for (i = le.text.begin(); i != le.text.end(); ++i)
    {
-      os << *outit;
+      if(*i == *le.cursor)
+      {
+	 cout << "^";
+	 cout << *i;
+      }
+      cout << *i;
    }
-   os << "$^";
    return os;
 }
