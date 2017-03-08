@@ -14,6 +14,7 @@
 #include <list>
 #include <iostream>
 #include <iterator>
+#include <algorithm>
 
 using namespace std;
 class LineEditor{
@@ -30,7 +31,7 @@ class LineEditor{
 
   private:
    list <char> text;
-   list <char>::iterator cursor;
+   list <char>::iterator cursor=text.begin();
 };
 ostream& operator<<(ostream &os, const LineEditor& le);
 

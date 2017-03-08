@@ -16,14 +16,14 @@ CCFLAGS = -Wall -g -std=c++11 -lX11
 
 # all is called a target, after the colon you have dependencies
 # ie. "the target all is dependent on the executables
-all : dieTest
+all : prob1
 
 # the target <excecutable1> is dependent on the list of dependencies
 # the line following  is the required executable (don't need to adjust it)
 # Note: executable lines, ie. $(CCC) ..., always begin with a tab.
 # $^ = this target
 # $@ = this/these dependencies
-dieTest : die.o dieTest.o
+prob1 : LineEditor.o
 	$(CCC) $(CCFLAGS) $^ -o $@
 
 # if 2 or more problems in assignment, you can compile them all with extra 
@@ -39,10 +39,11 @@ dieTest : die.o dieTest.o
 # In the following lines, make knows that the .cc file is required in the
 # current dependency so you can leave it out.  You can also leave out the
 # corresponding executable line
-die.o : die.h
-dieTest.o : die.h
+LineEditor.o : LineEditor.h
+prob1.o : LineEditor.h
+
 clean:
 	rm -f *.o *~ *% *# .#*
 
 clean-all: clean
-	rm -f dieTest
+	rm -f prob1
